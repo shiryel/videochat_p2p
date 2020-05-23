@@ -9,10 +9,15 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
-## Learn more
+# Deploy
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+```
+  SECRET_KEY_BASE=`mix phx.gen.secret`
+
+  podman build \
+    --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE \
+    --tag "wr_server:latest" \
+    .
+
+  podman run -d "wr_server:latest"
+```
