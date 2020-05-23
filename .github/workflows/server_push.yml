@@ -21,7 +21,7 @@ jobs:
       run: |
            docker build \
            --build-arg SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }} \
-           --tag docker.pkg.github.com/shiryel/videochat_p2p/wr_server:latest
+           --tag docker.pkg.github.com/shiryel/videochat_p2p/wr_server:latest \
            wr_server
 
     - name: Push
