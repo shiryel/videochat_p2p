@@ -31,10 +31,6 @@ jobs:
         echo "${{ secrets.AWS_PEM }}" > temp.pem
         chmod 400 temp.pem
 
-    - name: AWS - Docker Login
-      run: ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
-             echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u shiryel --password-stdin
-
     - name: AWS - Exclude last container if exists
       run: ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
              docker rm -f webrtc_server
