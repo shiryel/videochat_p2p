@@ -1,4 +1,4 @@
-name: Elixir CI
+name: Server Push CI
 
 on:
   push:
