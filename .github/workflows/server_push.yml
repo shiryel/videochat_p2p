@@ -34,7 +34,7 @@ jobs:
     - name: AWS - Set Docker Login
       run: |
            ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
-             echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
+             "echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin"
 
     - name: AWS - Exclude last container if exists
       run: |
