@@ -1,0 +1,28 @@
+name: Elixir CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Login
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u shiryel --password-stdin
+
+    - name: Build and Tag
+      run: |
+           docker build \
+           --build-arg SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }} \
+           --tag docker.pkg.github.com/shiryel/videochat_p2p/wr_server:latest
+           wr_server
+
+    - name: Push
+      run: docker push docker.pkg.github.com/shiryel/videochat_p2p/wr_server:latest
