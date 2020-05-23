@@ -16,8 +16,9 @@ jobs:
     - name: Docker - Login
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u shiryel --password-stdin
 
-    - name: Docker - Build and Tag
-      run: docker build \
+    - name: Docker - Build (with tag)
+      run: |
+           docker build \
            --build-arg SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }} \
            --tag docker.pkg.github.com/shiryel/videochat_p2p/wr_server:latest \
            wr_server
@@ -25,17 +26,19 @@ jobs:
     - name: Docker - Push
       run: docker push docker.pkg.github.com/shiryel/videochat_p2p/wr_server:latest
 
-    - name: AWS - Create PEM
+    - name: AWS - Set PEM
       run: |
         echo "${{ secrets.AWS_PEM }}" > temp.pem
         chmod 400 temp.pem
     
-    - name: AWS - Docker Login
-      run: ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
+    - name: AWS - Set Docker Login
+      run: |
+           ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
              echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u shiryel --password-stdin
 
     - name: AWS - Exclude last container if exists
-      run: ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
+      run: |
+           ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
              docker rm -f webrtc_server
 
     - name: AWS - Get and run new Image
@@ -53,7 +56,8 @@ jobs:
 
     - name: AWS - Clear Docker Login
       if: always()
-      run: ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
+      run: |
+           ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
              docker logout docker.pkg.github.com
 
     - name: AWS - Clear PEM
