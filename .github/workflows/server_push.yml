@@ -14,7 +14,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Docker - Login
-      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u shiryel --password-stdin
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
 
     - name: Docker - Build (with tag)
       run: |
@@ -34,7 +34,7 @@ jobs:
     - name: AWS - Set Docker Login
       run: |
            ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
-             echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u shiryel --password-stdin
+             echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin
 
     - name: AWS - Exclude last container if exists
       run: |
