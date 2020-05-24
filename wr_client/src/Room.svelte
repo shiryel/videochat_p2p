@@ -70,7 +70,7 @@
     return true;
   }
 
-  // (on 1) make a offer to all connections in the channel
+  // (on 1) make a offer to all connections in the channel and start sending icecandidates
   async function make_offer({ connection, id }, channel) {
     let offer = await connection.createOffer();
     sendSignaling(channel, "offer", offer, id);
@@ -79,7 +79,7 @@
     await connection.setLocalDescription(offer);
   }
 
-  // (on 2) answer a offer and start receving icecandidates
+  // (on 2) answer a offer and start sending icecandidates
   async function make_answer({ connection, id }, channel, offer) {
     connection.setRemoteDescription(new RTCSessionDescription(offer));
     let answer = await connection.createAnswer();
@@ -89,7 +89,7 @@
     await connection.setLocalDescription(answer);
   }
 
-  // (on 1) receve the answer and start receving icecandidates
+  // (on 1) receve the answer
   async function registry_answer({ connection, id }, answer) {
     await connection.setRemoteDescription(new RTCSessionDescription(answer));
   }
