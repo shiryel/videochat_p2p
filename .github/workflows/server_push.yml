@@ -1,4 +1,4 @@
-name: Server Push CI
+name: Server Push CD
 
 on:
   push:
