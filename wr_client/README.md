@@ -24,4 +24,6 @@ By default, the server will only respond to requests from localhost. To allow co
 podman build \
   --tag "wr_client:latest" 
   .
+
+podman run -d "wr_client:latest"
 ```
