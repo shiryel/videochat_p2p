@@ -2,9 +2,13 @@ name: Server Push CI
 
 on:
   push:
-    branches: [ master ]
+    paths:
+      - '.github/**'
+      - 'wr_server/**'
   pull_request:
-    branches: [ master ]
+    paths:
+      - '.github/**'
+      - 'wr_server/**'
 
 jobs:
   build:
