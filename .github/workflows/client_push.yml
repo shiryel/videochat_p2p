@@ -38,10 +38,12 @@ jobs:
       run: |
            ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
              "echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u $GITHUB_ACTOR --password-stdin"
+
     - name: AWS - Exclude last container if exists
       run: |
            ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
              docker rm -f webrtc_client
+
     - name: AWS - Get and run new Image
       if: success() || failure()
       run: |
@@ -54,11 +56,13 @@ jobs:
             --publish 5001:80 \
             --restart=always \
             docker.pkg.github.com/shiryel/videochat_p2p/wr_client:latest
+
     - name: AWS - Clear Docker Login
       if: always()
       run: |
            ssh -q -o "StrictHostKeyChecking no" -i temp.pem ${{ secrets.AWS_SSH }} \
              docker logout docker.pkg.github.com
+
     - name: AWS - Clear PEM
       if: always()
       run: rm -f temp.pem
