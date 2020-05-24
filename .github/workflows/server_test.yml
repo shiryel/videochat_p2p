@@ -1,0 +1,25 @@
+name: Server Test CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup elixir
+      uses: actions/setup-elixir@v1
+      with:
+        elixir-version: 1.10.3 # Define the elixir version [required]
+        otp-version: 22.2 # Define the OTP version [required]
+    - name: Get deps, and Run tests
+      run: |
+           cd wr_server/
+           mix deps.get
+           mix test
