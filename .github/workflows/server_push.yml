@@ -3,11 +3,11 @@ name: Server Push CI
 on:
   push:
     paths:
-      - '.github/**'
+      - '.github/workflows/server_push.yml'
       - 'wr_server/**'
   pull_request:
     paths:
-      - '.github/**'
+      - '.github/workflows/server_push.yml'
       - 'wr_server/**'
 
 jobs:
