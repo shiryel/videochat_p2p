@@ -3,11 +3,11 @@ name: Server Test CI
 on:
   push:
     paths:
-      - '.github/**'
+      - '.github/workflows/server_test.yml'
       - 'wr_server/**'
   pull_request:
     paths:
-      - '.github/**'
+      - '.github/workflows/server_test.yml'
       - 'wr_server/**'
 
 jobs:
