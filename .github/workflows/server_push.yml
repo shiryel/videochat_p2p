@@ -54,7 +54,7 @@ jobs:
           docker run -d \
             --name webrtc_server \
             --hostname webrtc_server \
-            --publish 4000:4000 \
+            --publish 4001:4000 \
             --restart=always \
             docker.pkg.github.com/shiryel/videochat_p2p/wr_server:latest
 
