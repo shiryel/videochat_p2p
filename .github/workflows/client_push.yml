@@ -51,7 +51,7 @@ jobs:
           docker run -d \
             --name webrtc_client \
             --hostname webrtc_client \
-            --publish 80:5001 \
+            --publish 5001:80 \
             --restart=always \
             docker.pkg.github.com/shiryel/videochat_p2p/wr_client:latest
     - name: AWS - Clear Docker Login
