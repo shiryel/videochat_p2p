@@ -5,7 +5,7 @@
   import Room from "./Room.svelte";
 
   // SOCKET
-  let socket = new Phoenix.Socket("ws://localhost:4000/socket", { params: {} });
+  let socket = new Phoenix.Socket("ws://www.webrtc-server.shiryel.com/socket", { params: {} });
   socket.connect();
   socket.onError(() => console.log("there was an error with the connection!"));
   socket.onClose(() => console.log("the connection dropped"));
